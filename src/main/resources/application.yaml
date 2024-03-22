@@ -19,6 +19,9 @@ spring:
       hibernate:
         format_sql: true
 
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
 security:
   jwt:
     secret: dHl3ZXJ0ZXd2eXR3ZXZydHl3ZXZydHlld3ZyeXRld3I=

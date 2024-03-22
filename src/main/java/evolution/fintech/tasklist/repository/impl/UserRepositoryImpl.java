@@ -7,14 +7,13 @@ import evolution.fintech.tasklist.repository.DataSourceConfig;
 import evolution.fintech.tasklist.repository.UserRepository;
 import evolution.fintech.tasklist.repository.mappers.UserRowMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Optional;
 
-@Repository
+//@Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
     private final DataSourceConfig dataSourceConfig;
@@ -72,11 +71,6 @@ public class UserRepositoryImpl implements UserRepository {
                           FROM users_tasks
                           WHERE user_id = ?
                             AND task_id = ?)
-            """;
-    private final String EXISTS_BY_USERNAME = """
-            select exists(SELECT 1
-                          FROM users
-                          WHERE username = ?)
             """;
     private final String DELETE = """
             DELETE FROM users
@@ -187,21 +181,6 @@ public class UserRepositoryImpl implements UserRepository {
             statement.executeUpdate();
         } catch (Exception e) {
             throw new ResourceMappingException("Error while deleting");
-        }
-    }
-
-    @Override
-    public boolean existsByUsername(String username) {
-        try {
-            Connection connection = dataSourceConfig.getConnection();
-            PreparedStatement statement = connection.prepareStatement(EXISTS_BY_USERNAME);
-            statement.setString(1, username);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                resultSet.next();
-                return resultSet.getBoolean(1);
-            }
-        } catch (Exception e) {
-            throw new ResourceMappingException("Error while finding all by userId.");
         }
     }
 }

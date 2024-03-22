@@ -6,13 +6,12 @@ import evolution.fintech.tasklist.repository.DataSourceConfig;
 import evolution.fintech.tasklist.repository.TaskRepository;
 import evolution.fintech.tasklist.repository.mappers.TaskRowMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 @RequiredArgsConstructor
 public class TaskRepositoryImpl implements TaskRepository {
     private final DataSourceConfig dataSourceConfig;
